@@ -1,0 +1,16 @@
+E:\project\New folder\CRUD\CRUD.ServiceContracts\bin\Debug\net8.0\CRUD.ServiceContracts.deps.json
+E:\project\New folder\CRUD\CRUD.ServiceContracts\bin\Debug\net8.0\CRUD.ServiceContracts.dll
+E:\project\New folder\CRUD\CRUD.ServiceContracts\bin\Debug\net8.0\CRUD.ServiceContracts.pdb
+E:\project\New folder\CRUD\CRUD.ServiceContracts\bin\Debug\net8.0\CRUD.Data.dll
+E:\project\New folder\CRUD\CRUD.ServiceContracts\bin\Debug\net8.0\CRUD.Data.pdb
+E:\project\New folder\CRUD\CRUD.ServiceContracts\obj\Debug\net8.0\CRUD.ServiceContracts.csproj.AssemblyReference.cache
+E:\project\New folder\CRUD\CRUD.ServiceContracts\obj\Debug\net8.0\CRUD.ServiceContracts.GeneratedMSBuildEditorConfig.editorconfig
+E:\project\New folder\CRUD\CRUD.ServiceContracts\obj\Debug\net8.0\CRUD.ServiceContracts.AssemblyInfoInputs.cache
+E:\project\New folder\CRUD\CRUD.ServiceContracts\obj\Debug\net8.0\CRUD.ServiceContracts.AssemblyInfo.cs
+E:\project\New folder\CRUD\CRUD.ServiceContracts\obj\Debug\net8.0\CRUD.ServiceContracts.csproj.CoreCompileInputs.cache
+E:\project\New folder\CRUD\CRUD.ServiceContracts\obj\Debug\net8.0\CRUD.Ser.61773C01.Up2Date
+E:\project\New folder\CRUD\CRUD.ServiceContracts\obj\Debug\net8.0\CRUD.ServiceContracts.dll
+E:\project\New folder\CRUD\CRUD.ServiceContracts\obj\Debug\net8.0\refint\CRUD.ServiceContracts.dll
+E:\project\New folder\CRUD\CRUD.ServiceContracts\obj\Debug\net8.0\CRUD.ServiceContracts.pdb
+E:\project\New folder\CRUD\CRUD.ServiceContracts\obj\Debug\net8.0\ref\CRUD.ServiceContracts.dll
+E:\project\New folder\CRUD\CRUD.ServiceContracts\obj\Debug\net8.0\CRUD.ServiceContracts.sourcelink.json

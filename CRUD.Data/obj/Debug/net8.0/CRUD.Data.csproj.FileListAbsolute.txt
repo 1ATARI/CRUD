@@ -1,0 +1,12 @@
+E:\project\New folder\CRUD\CRUD.Data\bin\Debug\net8.0\CRUD.Data.deps.json
+E:\project\New folder\CRUD\CRUD.Data\bin\Debug\net8.0\CRUD.Data.dll
+E:\project\New folder\CRUD\CRUD.Data\bin\Debug\net8.0\CRUD.Data.pdb
+E:\project\New folder\CRUD\CRUD.Data\obj\Debug\net8.0\CRUD.Data.GeneratedMSBuildEditorConfig.editorconfig
+E:\project\New folder\CRUD\CRUD.Data\obj\Debug\net8.0\CRUD.Data.AssemblyInfoInputs.cache
+E:\project\New folder\CRUD\CRUD.Data\obj\Debug\net8.0\CRUD.Data.AssemblyInfo.cs
+E:\project\New folder\CRUD\CRUD.Data\obj\Debug\net8.0\CRUD.Data.csproj.CoreCompileInputs.cache
+E:\project\New folder\CRUD\CRUD.Data\obj\Debug\net8.0\CRUD.Data.dll
+E:\project\New folder\CRUD\CRUD.Data\obj\Debug\net8.0\refint\CRUD.Data.dll
+E:\project\New folder\CRUD\CRUD.Data\obj\Debug\net8.0\CRUD.Data.pdb
+E:\project\New folder\CRUD\CRUD.Data\obj\Debug\net8.0\ref\CRUD.Data.dll
+E:\project\New folder\CRUD\CRUD.Data\obj\Debug\net8.0\CRUD.Data.sourcelink.json

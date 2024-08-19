@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "Vk08TD90vIg=",
+  "success": true,
+  "projectFilePath": "E:\\project\\New folder\\CRUD\\CRUD.Data\\CRUD.Data.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file E:\\project\\New folder\\CRUD\\CRUD.Data\\obj\\project.nuget.cache : Found invalid data while decoding."
+    }
+  ]
+}
