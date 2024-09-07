@@ -12,5 +12,6 @@ public interface IPersonsService
     List<PersonResponse>? GetFilteredPersons(string? searchBy , string searchString);
     
     List<PersonResponse>? GetSortedPerson(List<PersonResponse> allPersons,string sortBy , SortOrderOption sortOrderOption);
-
+    
+    PersonResponse? UpdatePerson(PersonUpdateRequest? personUpdateRequest);
 }

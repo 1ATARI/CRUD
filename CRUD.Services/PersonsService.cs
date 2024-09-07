@@ -224,4 +224,28 @@ public class PersonsService : IPersonsService
         return sortedPersons.ToList();
     }
 
+    public PersonResponse? UpdatePerson(PersonUpdateRequest? personUpdateRequest)
+    {
+        if (personUpdateRequest is null || personUpdateRequest.PersonId == Guid.Empty)
+        {
+            throw new ArgumentNullException(nameof(personUpdateRequest));
+        }
+
+        ValidationHelper.ModelValidation(personUpdateRequest);
+
+        Person person= _persons.FirstOrDefault(p => p.PersonId==personUpdateRequest.PersonId);
+        if (person is null)
+        {
+         throw new ArgumentException("Person not found");   
+        }
+        person.Name = personUpdateRequest.Name;
+        person.Email = personUpdateRequest.Email;
+        person.DateOfBirth = personUpdateRequest.DateOfBirth;
+        person.Gender = personUpdateRequest.Gender.ToString(); 
+        person.Address = personUpdateRequest.Address;
+        person.CountryId = personUpdateRequest.CountryId;
+        person.ReceiveNewsLetters = personUpdateRequest.ReceiveNewsLetters;
+
+        return person.ToPersonResponse();
+    }
 }

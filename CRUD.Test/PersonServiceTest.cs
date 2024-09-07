@@ -389,4 +389,91 @@ public class PersonServiceTest
     }
 
     #endregion
+
+    #region UpdatePerson
+
+    [Fact]
+
+    public void UpdatePerson_NullPerson()
+    {
+        PersonUpdateRequest personUpdateRequest = null;
+        Assert.Throws<ArgumentNullException>(() => _personsService.UpdatePerson(personUpdateRequest));
+    }
+    [Fact]
+        public void UpdatePerson_InvalidPersonId()
+        {
+            PersonUpdateRequest personUpdateRequest = new PersonUpdateRequest
+            {
+                PersonId = Guid.NewGuid(),
+                Name = "ahmed",
+                Email = "a@gm.com",
+
+            };
+        Assert.Throws<ArgumentException>(() => _personsService.UpdatePerson(personUpdateRequest));
+
+    }
+        [Fact]
+        public void UpdatePerson_NullPersonName()
+        {
+            CountryAddRequest countryAddRequest = new CountryAddRequest()
+            {
+            CountryName = "Egypt",
+            };
+            CountryResponse countryResponse=_countriesService.AddCountry(countryAddRequest);
+
+            PersonAddRequest personAddRequest = new PersonAddRequest()
+            {
+                Name = "youssef",
+                Email = "a@gmail.com",
+                Address = "a12st alexandria ....",
+                CountryId = countryResponse.CountryId,
+                Gender = GenderOptions.Male,
+                DateOfBirth = DateTime.Parse("2005-01-01"),
+                ReceiveNewsLetters = false,
+            };
+             PersonResponse personResponse= _personsService.AddPerson(personAddRequest);
+            
+            PersonUpdateRequest personUpdateRequest = personResponse.ToPersonUpdateRequest();
+            personUpdateRequest.Name = null;
+            
+            
+            
+        Assert.Throws<ArgumentException>(() => { _personsService.UpdatePerson(personUpdateRequest);});
+
+    }
+        [Fact]
+        public void UpdatePerson_PersonFullDetails()
+        {
+            CountryAddRequest countryAddRequest = new CountryAddRequest()
+            {
+            CountryName = "Egypt",
+            };
+            CountryResponse countryResponse=_countriesService.AddCountry(countryAddRequest);
+
+            PersonAddRequest personAddRequest = new PersonAddRequest()
+            {
+                Name = "youssef",
+                Email = "a@gmail.com",
+                Address = "a12st alexandria ....",
+                CountryId = countryResponse.CountryId,
+                Gender = GenderOptions.Male,
+                DateOfBirth = DateTime.Parse("2005-01-01"),
+                ReceiveNewsLetters = false,
+            };
+             PersonResponse personResponse= _personsService.AddPerson(personAddRequest);
+            
+            PersonUpdateRequest personUpdateRequest = personResponse.ToPersonUpdateRequest();
+            personUpdateRequest.Name = "Ahmed";
+            personUpdateRequest.Email = "new@gmail.com";
+            
+            PersonResponse personResponseFromUpdate = _personsService.UpdatePerson(personUpdateRequest);
+            PersonResponse getPerson = _personsService.GetPersonById(personResponseFromUpdate.PersonId);
+            _testOutputHelper.WriteLine(personResponseFromUpdate.Name );
+            _testOutputHelper.WriteLine(getPerson.Name );
+        Assert.Equal(personResponseFromUpdate.Name, getPerson.Name);
+
+    }
+    
+
+    #endregion
 }
