@@ -14,4 +14,6 @@ public interface IPersonsService
     List<PersonResponse>? GetSortedPerson(List<PersonResponse> allPersons,string sortBy , SortOrderOption sortOrderOption);
     
     PersonResponse? UpdatePerson(PersonUpdateRequest? personUpdateRequest);
+    
+    bool DeletePerson(Guid? personId);
 }

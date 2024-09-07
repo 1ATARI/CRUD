@@ -248,4 +248,18 @@ public class PersonsService : IPersonsService
 
         return person.ToPersonResponse();
     }
+
+    public bool DeletePerson(Guid? personId)
+    {
+        if (personId is null)
+        {
+            throw new ArgumentNullException(nameof(personId));
+
+        }
+        Person? person = _persons.FirstOrDefault(p=>p.PersonId==personId);
+        if(person is null)
+            return false;
+        
+        return _persons.Remove(person);
+    }
 }

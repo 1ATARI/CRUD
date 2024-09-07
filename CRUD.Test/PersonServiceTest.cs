@@ -473,7 +473,46 @@ public class PersonServiceTest
         Assert.Equal(personResponseFromUpdate.Name, getPerson.Name);
 
     }
+        
+    #endregion
     
+    #region DeletePerson
+
+    [Fact]
+    public void DeletePerson_NullPerson()
+    {
+        Assert.Throws<ArgumentNullException>(() => _personsService.DeletePerson(null));
+
+    }
+
+    [Fact]
+    public void DeletePerson_InvalidPersonId()
+    {
+        Assert.False(_personsService.DeletePerson(Guid.NewGuid()));
+    }
+    [Fact]
+    public void DeletePerson_ValidPersonId()
+    {
+        CountryAddRequest countryAddRequest = new CountryAddRequest()
+        {
+            CountryName = "Egypt",
+        };
+        CountryResponse countryResponse = _countriesService.AddCountry(countryAddRequest);
+        PersonAddRequest personAddRequest = new PersonAddRequest()
+        {
+            Name = "youssef",
+            Email = "a@gmail.com",
+            Address = "a12st alexandria ....",
+            CountryId = countryResponse.CountryId,
+            Gender = GenderOptions.Male,
+            DateOfBirth = DateTime.Parse("2005-01-01"),
+            ReceiveNewsLetters = false,
+        };
+        PersonResponse personResponse = _personsService.AddPerson(personAddRequest);
+
+        Assert.True(_personsService.DeletePerson(personResponse.PersonId));
+    }
+
 
     #endregion
 }
