@@ -13,7 +13,7 @@ public class PersonResponse
     public Guid? CountryId { get; set; }
     public string? CountryName { get; set; }
     public string? Address { get; set; }
-    public bool? ReceiveNewsLetters { get; set; }
+    public bool ReceiveNewsLetters { get; set; }
     public double? Age { get; set; }
 
 

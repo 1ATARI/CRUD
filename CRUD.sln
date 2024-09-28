@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRUD.ServiceContracts", "CR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRUD.Services", "CRUD.Services\CRUD.Services.csproj", "{21BBB5FF-EBE2-416A-8EA2-D9BB09628644}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRUDSolution", "CRUDSolution\CRUDSolution.csproj", "{ADE591DE-5AD7-42A0-A892-614B359E0D76}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRUD.Solution", "CRUD.Solution\CRUD.Solution.csproj", "{ADE591DE-5AD7-42A0-A892-614B359E0D76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

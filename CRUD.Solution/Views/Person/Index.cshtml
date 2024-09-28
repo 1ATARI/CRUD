@@ -1,0 +1,100 @@
+@using CRUD.Solution.Helpers
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<PersonResponse>
+@{
+ViewBag.Title = "Person";
+}
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">Person</div>
+
+        <div class="navbar-menu-wrapper d-flex align-items-center">
+            <ul class="navbar-nav navbar-nav-right">
+                <form asp-action="Index" method="get">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <!-- Dropdown for search field selection -->
+                            <div class="input-group-prepend @(string.IsNullOrEmpty(ViewBag.searchBy) ? "" : "show")">
+                                <button id="dropdownButton" class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @if (!string.IsNullOrEmpty(ViewBag.searchBy))
+                                    {
+                                    @ViewBag.searchBy
+                                    }
+                                    else
+                                    {
+                                    <text>Dropdown</text>
+                                    }
+                                </button>
+                                <div class="dropdown-menu">
+                                    @foreach (var item in ViewBag.SearchFilds)
+                                    {
+                                    <a class="dropdown-item" onclick="selectDropdownItem('@item.Value', '@item.Key')">@item.Value</a>
+                                    }
+                                </div>
+                            </div>
+
+                            <input type="hidden" id="searchBy" name="searchBy" value="@ViewBag.searchBy" />
+
+                            <input type="text" class="form-control" id="search" name="searchString" value="@ViewBag.searchString" aria-label="Text input with dropdown button" />
+
+                            <!-- Submit button -->
+                            <div class="input-group-append">
+                                <button class="btn btn-sm btn-primary" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </ul>
+
+            <ul class="navbar-nav ml-auto mr-5">
+                <a asp-action="Create" class="btn btn-success">Create Person</a>
+            </ul>
+        </div>
+
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>@Html.Raw(Html.RenderSortLink(nameof(PersonResponse.Name), "Name", ViewData))</th>
+                <th>@Html.Raw(Html.RenderSortLink(nameof(PersonResponse.Email), "Email", ViewData))</th>
+                <th>@Html.Raw(Html.RenderSortLink(nameof(PersonResponse.DateOfBirth), "Date of Birth", ViewData))</th>
+                <th>@Html.Raw(Html.RenderSortLink(nameof(PersonResponse.Gender), "Gender", ViewData))</th>
+                <th>@Html.Raw(Html.RenderSortLink(nameof(PersonResponse.CountryName), "Country", ViewData))</th>
+                <th>@Html.Raw(Html.RenderSortLink(nameof(PersonResponse.Address), "Address", ViewData))</th>
+                <th>@Html.Raw(Html.RenderSortLink(nameof(PersonResponse.ReceiveNewsLetters), "Receive Newsletters", ViewData))</th>
+                <th class="text-center sorting_asc">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var person in Model)
+            {
+            <tr>
+                <td>@person.Name</td>
+                <td>@person.Email</td>
+                <td>@person.DateOfBirth?.ToString("yyyy-MM-dd")</td>
+                <td>@person.Gender</td>
+                <td>@person.CountryName</td>
+                <td>@person.Address</td>
+                <td>
+                    <label class="badge badge-@(person.ReceiveNewsLetters == true ? "success" : "danger")">
+                        @(person.ReceiveNewsLetters == true ? "Receiving" : "Not Receiving")
+                    </label>
+                </td>
+                <td class="text-center"><a asp-action="Edit" asp-route-PersonId="@person.PersonId" class="btn btn-inverse-primary btn-fw btn-sm">Edit</a>
+                <a asp-action="Delete" asp-route-PersonId="@person.PersonId" class="btn btn-inverse-danger btn-fw btn-sm">Delete</a><td/>
+            </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts
+{
+<script>
+    function selectDropdownItem(value, key) {
+        document.getElementById('dropdownButton').textContent = value;
+        document.getElementById('searchBy').value = key;
+    }
+</script>
+}

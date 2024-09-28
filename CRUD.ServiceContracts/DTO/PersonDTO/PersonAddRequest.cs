@@ -9,12 +9,14 @@ public class PersonAddRequest
     [Required(ErrorMessage = "You must provide valid name")]
     public required string Name { get; set; }
     [EmailAddress(ErrorMessage = "Email should be valid ") , Required(ErrorMessage ="Email can't be empty")]
+    [DataType(DataType.EmailAddress)]
     public required string Email { get; set; }
+    [DataType(DataType.Date)]
     public DateTime? DateOfBirth { get; set; }
-    public GenderOptions? Gender { get; set; }
+    public GenderOptions Gender { get; set; }
     public Guid? CountryId { get; set; }
     public string? Address { get; set; }
-    public bool? ReceiveNewsLetters { get; set; }
+    public bool ReceiveNewsLetters { get; set; }
 
 
 

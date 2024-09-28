@@ -1,0 +1,72 @@
+@model PersonUpdateRequest
+
+@{
+    ViewBag.Title = "Edit Person" ;
+    Layout = "_Layout";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Update Person</h4>
+
+        <form asp-action="Edit" method="post" class="forms-sample" asp-route-personId="@Model.PersonId">
+            <div class="form-group">
+                <label asp-for="Name">Name</label>
+                <input type="text" asp-for="Name" class="form-control" placeholder="Name">
+                <span asp-validation-for="Name" class="text-danger "></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email">Email address</label>
+                <input type="email" asp-for="Email" class="form-control" placeholder="Email">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DateOfBirth">Date of Birth</label>
+                <input type="date" asp-for="DateOfBirth" class="form-control" placeholder="Date of Birth">
+                <span asp-validation-for="DateOfBirth" class="text-danger mt-2"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Gender">Gender</label>
+                <select asp-for="Gender" class="form-control">
+                    @foreach (GenderOptions gender in Enum.GetValues(typeof(GenderOptions)))
+                    {
+                    <option value="@gender">@gender</option>
+                    }
+                </select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="CountryId">Country</label>
+
+                <select asp-for="CountryId" class="form-control" asp-items="@ViewBag.Countries">
+                    <option selected disabled value="">Select Country</option>
+           
+                </select>
+                <span asp-validation-for="CountryId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Address">Address</label>
+                <textarea asp-for="Address" class="form-control" rows="4" placeholder="Address"></textarea>
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+       
+            <div class="form-check form-check-flat form-check-primary mt-3">
+                <label class="form-check-label" asp-for="ReceiveNewsLetters">
+                    <input type="checkbox" asp-for="ReceiveNewsLetters" value="true"  class="form-check-input">
+                    Receive Newsletters
+                    <i class="input-helper"></i></label>
+                <span asp-validation-for="ReceiveNewsLetters" class="text-danger"></span>
+
+            </div>
+            <button type="submit" class="btn btn-primary mr-2 mt-3">Submit</button>
+            <button type="button" class="btn btn-light mt-3">Cancel</button>
+        </form>
+    
+        </div>
+</div>

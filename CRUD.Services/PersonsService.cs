@@ -14,13 +14,76 @@ public class PersonsService : IPersonsService
     private readonly ICountriesService _countriesService;
 
 
-    public PersonsService()
+    public PersonsService(bool Initialize = true)
     {
         _persons = new List<Person>();
+
+        if (Initialize)
+        {
+            _persons.AddRange(new List<Person>
+            {
+                new Person
+                {
+                    PersonId = Guid.NewGuid(),
+                    Name = "John Doe",
+                    Email = "john.doe@example.com",
+                    DateOfBirth = new DateTime(1990, 5, 14),
+                    Gender = "Male",
+                    CountryId = Guid.Parse("0836DDD2-E0D5-4F9D-ACDB-C9D066EC4DFD"),
+                    Address = "123 Main St, Cairo",
+                    ReceiveNewsLetters = true
+                },
+                new Person
+                {
+                    PersonId = Guid.NewGuid(),
+                    Name = "Jane Smith",
+                    Email = "jane.smith@example.com",
+                    DateOfBirth = new DateTime(1985, 3, 22),
+                    Gender = "Female",
+                    CountryId = Guid.Parse("1AE34F09-ACFE-4A4A-862B-047A29FA5AA5"),
+                    Address = "456 Oak St, New York",
+                    ReceiveNewsLetters = false
+                },
+                new Person
+                {
+                    PersonId = Guid.NewGuid(),
+                    Name = "Mike Johnson",
+                    Email = "mike.johnson@example.com",
+                    DateOfBirth = new DateTime(1992, 11, 30),
+                    Gender = "Male",
+                    CountryId = Guid.Parse("AC7E276F-6E30-4A91-B47F-0CE6BB1157A2"),
+                    Address = "789 Pine St, Toronto",
+                    ReceiveNewsLetters = true
+                },
+                new Person
+                {
+                    PersonId = Guid.NewGuid(),
+                    Name = "Emily Davis",
+                    Email = "emily.davis@example.com",
+                    DateOfBirth = new DateTime(1988, 7, 18),
+                    Gender = "Female",
+                    CountryId = Guid.Parse("B69BFA71-B264-48B3-8511-A6C9C60C00AB"),
+                    Address = "321 Cedar St, Paris",
+                    ReceiveNewsLetters = false
+                },
+                new Person
+                {
+                    PersonId = Guid.NewGuid(),
+                    Name = "Chris Lee",
+                    Email = "chris.lee@example.com",
+                    DateOfBirth = new DateTime(1995, 12, 2),
+                    Gender = "Male",
+                    CountryId = Guid.Parse("81BA47A0-54AC-441B-A863-D9444DFBD44A"),
+                    Address = "654 Willow St, Berlin",
+                    ReceiveNewsLetters = true
+                }
+            });
+        }
+
         _countriesService = new CountriesService();
     }
 
-    private PersonResponse? PersonToPersonResponse(Person person)
+    private PersonResponse? ConvertPersonToPersonResponse(Person person)
     {
         PersonResponse? personResponse = person.ToPersonResponse();
         personResponse.CountryName = _countriesService.GetCountryById(person.CountryId)?.CountryName;
@@ -38,12 +101,12 @@ public class PersonsService : IPersonsService
 
         Person person = personAddRequest.ToPerson();
         _persons.Add(person);
-        return PersonToPersonResponse(person);
+        return ConvertPersonToPersonResponse(person);
     }
 
     public List<PersonResponse> GetAllPersons()
     {
-        return _persons.Select(p => p.ToPersonResponse()).ToList();
+        return _persons.Select(p => ConvertPersonToPersonResponse(p)).ToList();
     }
 
     public PersonResponse? GetPersonById(Guid? PersonId)
@@ -54,13 +117,14 @@ public class PersonsService : IPersonsService
             return null;
         }
 
-        return PersonToPersonResponse(person);
+        return ConvertPersonToPersonResponse(person);
     }
 
-    public List<PersonResponse>? GetFilteredPersons(string? searchBy, string searchString)
+    public List<PersonResponse>? GetFilteredPersons(string? searchBy, string? searchString)
     {
+        searchBy = string.IsNullOrEmpty(searchBy) ? nameof(Person.Name) : searchBy;
         List<PersonResponse> allPersons = GetAllPersons();
-        List<PersonResponse> matchingPerson = allPersons;
+        List<PersonResponse> matchingPerson = GetAllPersons();
 
         if (string.IsNullOrEmpty(searchBy) || string.IsNullOrEmpty(searchString))
         {
@@ -70,21 +134,21 @@ public class PersonsService : IPersonsService
 
         switch (searchBy)
         {
-            case nameof(Person.Name):
+            case nameof(PersonResponse.Name):
                 matchingPerson = allPersons
                     .Where(p =>
                         p.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
                     .ToList();
                 break;
 
-            case nameof(Person.Email):
+            case nameof(PersonResponse.Email):
                 matchingPerson = allPersons
                     .Where(p => !string.IsNullOrEmpty(p.Email) &&
                                 p.Email.Contains(searchString, StringComparison.OrdinalIgnoreCase))
                     .ToList();
                 break;
 
-            case nameof(Person.DateOfBirth):
+            case nameof(PersonResponse.DateOfBirth):
                 if (DateTime.TryParse(searchString, out DateTime parsedDate))
                 {
                     matchingPerson = allPersons
@@ -95,35 +159,32 @@ public class PersonsService : IPersonsService
 
                 break;
 
-            case nameof(Person.Gender):
+            case nameof(PersonResponse.Gender):
                 matchingPerson = allPersons
                     .Where(p => !string.IsNullOrEmpty(p.Gender) &&
                                 p.Gender.Equals(searchString, StringComparison.OrdinalIgnoreCase))
                     .ToList();
                 break;
-            case nameof(Person.CountryId):
-                if (Guid.TryParse(searchString, out Guid parsedGuid))
-                {
-                    matchingPerson = allPersons
-                        .Where(p => p.CountryId.HasValue &&
-                                    p.CountryId.Value == parsedGuid)
-                        .ToList();
-                }
+            case nameof(PersonResponse.CountryName):  
+                matchingPerson = allPersons
+                    .Where(p => !string.IsNullOrEmpty(p.CountryName) &&
+                                p.CountryName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
 
                 break;
-            case nameof(Person.Address):
+            case nameof(PersonResponse.Address):
                 matchingPerson = allPersons
                     .Where(p => !string.IsNullOrEmpty(p.Address) &&
                                 p.Address.Contains(searchString, StringComparison.OrdinalIgnoreCase))
                     .ToList();
                 break;
 
-            case nameof(Person.ReceiveNewsLetters):
+            case nameof(PersonResponse.ReceiveNewsLetters):
                 if (bool.TryParse(searchString, out bool parsedBool))
                 {
                     matchingPerson = allPersons
-                        .Where(p => p.ReceiveNewsLetters.HasValue &&
-                                    p.ReceiveNewsLetters.Value == parsedBool)
+                        .Where(p => p.ReceiveNewsLetters &&
+                                    p.ReceiveNewsLetters == parsedBool)
                         .ToList();
                 }
 
@@ -200,17 +261,19 @@ public class PersonsService : IPersonsService
     //     return sortedPersons;
     // }
     //
-    
+
     //using reflection 
-    public List<PersonResponse>? GetSortedPerson(List<PersonResponse> allPersons, string sortBy, SortOrderOption sortOrder)
+    public List<PersonResponse>? GetSortedPerson(List<PersonResponse> allPersons, string sortBy,
+        SortOrderOption sortOrder)
     {
-        if (allPersons == null || allPersons.Count == 0) 
-            return allPersons; 
+        if (allPersons == null || allPersons.Count == 0)
+            return allPersons;
 
         if (string.IsNullOrEmpty(sortBy))
-            return allPersons; 
+            return allPersons;
 
-        var propertyInfo = typeof(PersonResponse).GetProperty(sortBy, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+        var propertyInfo = typeof(PersonResponse).GetProperty(sortBy,
+            BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
         if (propertyInfo == null)
             throw new ArgumentException($"Invalid sort property: {sortBy}");
 
@@ -233,20 +296,21 @@ public class PersonsService : IPersonsService
 
         ValidationHelper.ModelValidation(personUpdateRequest);
 
-        Person person= _persons.FirstOrDefault(p => p.PersonId==personUpdateRequest.PersonId);
+        Person person = _persons.FirstOrDefault(p => p.PersonId == personUpdateRequest.PersonId);
         if (person is null)
         {
-         throw new ArgumentException("Person not found");   
+            throw new ArgumentException("Person not found");
         }
+
         person.Name = personUpdateRequest.Name;
         person.Email = personUpdateRequest.Email;
         person.DateOfBirth = personUpdateRequest.DateOfBirth;
-        person.Gender = personUpdateRequest.Gender.ToString(); 
+        person.Gender = personUpdateRequest.Gender.ToString();
         person.Address = personUpdateRequest.Address;
         person.CountryId = personUpdateRequest.CountryId;
         person.ReceiveNewsLetters = personUpdateRequest.ReceiveNewsLetters;
 
-        return person.ToPersonResponse();
+        return ConvertPersonToPersonResponse(person);
     }
 
     public bool DeletePerson(Guid? personId)
@@ -254,12 +318,12 @@ public class PersonsService : IPersonsService
         if (personId is null)
         {
             throw new ArgumentNullException(nameof(personId));
-
         }
-        Person? person = _persons.FirstOrDefault(p=>p.PersonId==personId);
-        if(person is null)
+
+        Person? person = _persons.FirstOrDefault(p => p.PersonId == personId);
+        if (person is null)
             return false;
-        
+
         return _persons.Remove(person);
     }
 }

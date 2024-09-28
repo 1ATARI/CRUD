@@ -17,8 +17,8 @@ public class PersonServiceTest
     public PersonServiceTest(ITestOutputHelper testOutputHelper)
     {
         _testOutputHelper = testOutputHelper;
-        _personsService = new PersonsService();
-        _countriesService = new CountriesService();
+        _personsService = new PersonsService(Initialize:false);
+        _countriesService = new CountriesService(Initialize: false);
     }
 
     #region AddPerson

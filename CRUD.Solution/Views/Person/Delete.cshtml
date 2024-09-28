@@ -1,0 +1,43 @@
+@model PersonResponse
+
+@{
+    ViewBag.Title = "Delete Person";
+    Layout = "_Layout";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Delete Person</h4>
+        <div class="alert alert-warning" role="alert">
+            Are you sure you want to delete the following person?
+        </div>
+
+        <dl class="row">
+            <dt class="col-sm-3">Name</dt>
+            <dd class="col-sm-9">@Model.Name</dd>
+
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9">@Model.Email</dd>
+
+            <dt class="col-sm-3">Date of Birth</dt>
+            <dd class="col-sm-9">@Model.DateOfBirth</dd>
+
+            <dt class="col-sm-3">Gender</dt>
+            <dd class="col-sm-9">@Model.Gender</dd>
+
+            <dt class="col-sm-3">Country</dt>
+            <dd class="col-sm-9">@Model.CountryName</dd>
+
+            <dt class="col-sm-3">Address</dt>
+            <dd class="col-sm-9">@Model.Address</dd>
+
+            <dt class="col-sm-3">Receive Newsletters</dt>
+            <dd class="col-sm-9">@Model.ReceiveNewsLetters</dd>
+        </dl>
+
+        <form asp-action="Delete" method="post" asp-route-personId="@Model.PersonId">
+            <button type="submit" class="btn btn-danger mr-2">Delete</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>

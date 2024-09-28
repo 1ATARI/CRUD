@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+@Html.Partial("_Header")
+
+<body>
+<div class="container-scroller">
+    @await Html.PartialAsync("_Navbar")
+    <div class="container-fluid page-body-wrapper">
+        @await Html.PartialAsync("_Sidebar")
+        <div class="main-panel">
+            <div class="content-wrapper">
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        @TempData["SuccessMessage"]
+                    </div>
+                }
+
+                @if (TempData["ErrorMessage"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        @TempData["ErrorMessage"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+                @RenderBody()
+            </div>
+            @await Html.PartialAsync("_Footer")
+        </div>
+    </div>
+</div>
+
+<!-- JS files -->
+<script src="~/skydash/vendors/js/vendor.bundle.base.js"></script>
+<script src="~/skydash/js/off-canvas.js"></script>
+<script src="~/skydash/js/hoverable-collapse.js"></script>
+<script src="~/skydash/js/template.js"></script>
+<script src="~/skydash/js/settings.js"></script>
+<script src="~/skydash/js/todolist.js"></script>
+@await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>
